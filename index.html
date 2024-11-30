@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lester Angelo O. Dalde's Carbon Footprint Activity Report</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #4caf50;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e8f5e9;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .conclusion {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-left: 5px solid #4caf50;
+            margin-top: 20px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .action-button {
+            background-color: #4caf50; /* Green */
+            color: white; /* White text */
+            padding: 15px 30px; /* Padding */
+            font-size: 16px; /* Font size */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s; /* Transition effect */
+        }
+        .action-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .calculator {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff3e0; /* Light orange */
+            border-radius: 8px; 
+        }
+    </style>
+    <script>
+        function showMotivationalMessage() {
+            alert("Every small step counts! Consider walking or biking to reduce your carbon footprint.");
+        }
+
+        function calculateCO2() {
+            const distance = parseFloat(document.getElementById('distance').value);
+            const frequency = parseInt(document.getElementById('frequency').value);
+            
+            if (isNaN(distance) || isNaN(frequency) || distance <= 0 || frequency <= 0) {
+                alert("Please enter valid distance and frequency values.");
+                return;
+            }
+
+            const emissionsPerKm = 0.08277; // kg CO₂e
+            const totalDistance = distance * frequency * 2; // round trip
+            const totalEmissions = (totalDistance * emissionsPerKm).toFixed(2);
+
+            document.getElementById('result').innerText = `Your estimated weekly CO₂ emissions are ${totalEmissions} kg CO₂e.`;
+            
+           // Update chart
+           updateChart(totalEmissions);
+        }
+
+        function updateChart(totalEmissions) {
+           const ctx = document.getElementById('emissionsChart').getContext('2d');
+           const chartData = [totalEmissions, (14 * 0.08277).toFixed(2)]; // User's emissions vs original data
+           const labels = ['Your Emissions', 'Original Emissions'];
+
+           if (window.myChart) {
+               window.myChart.destroy();
+           }
+
+           window.myChart = new Chart(ctx, {
+               type: 'bar',
+               data: {
+                   labels,
+                   datasets: [{
+                       label: 'CO₂ Emissions (kg CO₂e)',
+                       data: chartData,
+                       backgroundColor: ['#4caf50', '#ff9800'],
+                       borderColor: ['#388e3c', '#f57c00'],
+                       borderWidth: 1
+                   }]
+               },
+               options:{
+                   scales:{
+                       y:{
+                           beginAtZero:true
+                       }
+                   }
+               }
+           });
+       }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>My Carbon Footprint Activity Report</h1>
+    </header>
+
+    <main style="padding: 20px;">
+        
+         <!-- Commute Details Table -->
+         <h2>Commute Details</h2>
+         <table>
+             <tr>
+                 <th>Commute Distance (one way)</th>
+                 <td>1 km</td>
+             </tr>
+             <tr>
+                 <th>Commute Frequency</th>
+                 <td>7 days a week</td>
+             </tr>
+         </table>
+
+         <!-- Calculation of Total Weekly Distance -->
+         <h2>Calculation of Total Weekly Distance</h2>
+         <p><strong>Daily Round Trip Distance:</strong><br>
+             1 km (to college) + 1 km (back home) = 2 km</p>
+         <p><strong>Total Weekly Distance:</strong><br>
+             2 km/day × 7 days = 14 km</p>
+
+         <!-- CO2 Emissions Calculation -->
+         <h2>CO2 Emissions Calculation</h2>
+         <p><strong>Average CO2 Emissions per km:</strong> 0.08277 kg CO₂e</p>
+         <p><strong>Total Weekly CO₂ Emissions Calculation:</strong><br>
+             Total CO₂e = Distance × Emissions per km/week<br>
+             Total CO₂e = 14 km × 0.08277 kg CO₂e/km = 1.16 kg CO₂e</p>
+
+         <!-- Summary of Your Carbon Footprint Activity -->
+         <h2>Summary of Your Carbon Footprint Activity</h2>
+         <table>
+             <tr>
+                 <th>Activity</th>
+                 <th>Details</th>
+             </tr>
+             <tr>
+                 <td>Commute Distance (one way)</td>
+                 <td>1 km</td>
+             </tr>
+             <tr>
+                 <td>Commute Frequency</td>
+                 <td>7 days a week</td>
+             </tr>
+             <tr>
+                 <td>Total Weekly Distance</td>
+                 <td>14 km</td>
+             </tr>
+             <tr>
+                 <td>CO2 Emissions per km</td>
+                 <td>0.08277 kg CO₂e</td>
+             </tr>
+             <tr>
+                 <td>Total Weekly CO₂ Emissions</td>
+                 <td>1.16 kg CO₂e</td>
+             </tr>
+         </table>
+
+         <!-- Conclusion and Reflection -->
+         <h2>Conclusion and Reflection</h2>
+         <div class="conclusion">
+             In computing my weekly carbon footprint from the Northern Bukidnon State College through commuting, I estimated that I discharged 1.16 kg CO₂e. This figure shows that even though I sometimes take a motorbike for short distance travel, my daily travel has these effects.<br><br>
+
+             Thinking of this, I wish to point out that even the smallest action is very important when it comes to climate change. My current means of commuting is effective, but the idea to consider environment best practices inspires me. For example, I could further reduce my emissions through configured travel such as walking to college or biking.<br><br>
+
+             I can adopt eco-friendly travel practices, including walking or biking to campus whenever feasible, to lower my carbon emissions. Additionally, arranging daily carpools with classmates can greatly reduce the overall amount of CO₂ emissions that students produce. In addition to benefiting the environment, carpooling helps students become closer and more united.<br><br>
+
+              This exercise has served as a real wake-up call to me personally, and it has encouraged me to do something to change my behavior towards the environment. We all need to be aware of how we travel and do it in a way that helps preserve our environment and convince others around us to emulate the same habits.
+          </div>
+
+          <!-- Button Section -->
+          <div class="button-container">
+              <button class="action-button" onclick="showMotivationalMessage()">Take Action!</button>
+
+              <!-- Calculator Section -->
+              <div class="calculator">
+                  <h3>Calculate Your Own Carbon Footprint</h3>
+                  <label for="distance">Commute Distance (one way in km): </label><br />
+                  <input type="number" id="distance" placeholder="Enter distance" /><br /><br />
+                  <label for="frequency">Commute Frequency (days per week): </label><br />
+                  <input type="number" id="frequency" placeholder="Enter frequency" /><br /><br />
+                  <button class="action-button" onclick="calculateCO2()">Calculate Emissions</button>
+
+                  <!-- Result Display -->
+                  <p id="result" style="margin-top:10px;"></p>
+
+                  <!-- Chart Canvas -->
+                  <canvas id="emissionsChart" width="400" height="200"></canvas>
+
+              </div>
+
+          </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>&copy; 2024 My Carbon Footprint Report</footer>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>
